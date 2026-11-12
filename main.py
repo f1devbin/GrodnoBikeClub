@@ -755,6 +755,47 @@ def send_photo(token, chat_id, path, caption=None, silent=True):
     return result
 
 
+def build_report(now, used, mode, weather, rates, result):
+    day = now.astimezone(TZ)
+    cycling = sum(1 for item in used if item.get("kind") == "cycling")
+    grodno = len(used) - cycling
+    lines = [
+        f"📊 Отчёт за {day.day} {MONTHS[day.month - 1]}",
+        f"Новостей: {len(used)} (вело {cycling}, Гродно {grodno})",
+        f"Режим: {'ИИ' if mode == 'ai' else 'без ИИ'}",
+    ]
+    if weather:
+        lines.append(f"Погода: {weather['temp']:+d}°, {weather['desc']}")
+    if rates:
+        lines.append(f"Курсы: {len(rates.get('fiat', []))} валют, "
+                     f"{len(rates.get('crypto', []))} крипто")
+    try:
+        message_id = result["result"]["message_id"]
+        lines.append(f"message_id: {message_id}")
+    except (TypeError, KeyError):
+        pass
+    return "\n".join(lines)
+
+
+def send_admin_report(text):
+    token = os.environ.get("TELEGRAM_BOT_TOKEN")
+    chat = os.environ.get("ADMIN_CHAT_ID")
+    if not token or not chat:
+        log("[report] ADMIN_CHAT_ID не задан — отчёт не отправлен")
+        return
+    data = urllib.parse.urlencode({
+        "chat_id": chat,
+        "text": text,
+        "disable_web_page_preview": "true",
+    }).encode("utf-8")
+    req = urllib.request.Request(
+        f"https://api.telegram.org/bot{token}/sendMessage", data=data
+    )
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        if not json.loads(resp.read()).get("ok"):
+            raise RuntimeError("Telegram не принял отчёт")
+
+
 # --------------------------------------------------------------------- main
 def main():
     parser = argparse.ArgumentParser(description="Велодайджест Беларуси → Telegram")
@@ -811,6 +852,7 @@ def main():
 
     if args.dry_run:
         print("\n" + "=" * 60 + "\n" + (classic if args.classic else rich) + "\n" + "=" * 60)
+        log("[report] превью:\n" + build_report(now, used, mode, weather, rates, None))
         if CFG.get("cover", {}).get("enabled", True):
             try:
                 cover = extras.draw_cover(now, weather,
@@ -836,21 +878,32 @@ def main():
             log(f"[telegram] обложка не отправлена: {type(exc).__name__}: {exc}")
 
     use_rich = CFG.get("telegram", {}).get("use_rich", True) and not args.classic
+    sent_result = None
     if use_rich:
         try:
-            send_rich(token, chat_id, rich)
+            sent_result = send_rich(token, chat_id, rich)
             log("[telegram] отправлен rich-пост")
         except Exception as exc:  # noqa: BLE001
             log(f"[telegram] rich не удался ({type(exc).__name__}: {exc}); фолбэк на обычный пост")
-            send_telegram(token, chat_id, classic)
+            sent_result = send_telegram(token, chat_id, classic)
             log("[telegram] отправлен обычный пост")
     else:
-        send_telegram(token, chat_id, classic)
+        sent_result = send_telegram(token, chat_id, classic)
         log("[telegram] отправлен обычный пост")
     if used:
         mark_sent(state, used, now)
         save_state(args.state, state)
         log(f"[state] записано {len(used)} новостей")
+
+    report = build_report(now, used, mode, weather, rates, sent_result)
+    if str(os.environ.get("SEND_REPORT", "")).lower() in ("1", "true", "yes", "on"):
+        try:
+            send_admin_report(report)
+            log("[report] отправлен администратору")
+        except Exception as exc:  # noqa: BLE001
+            log(f"[report] ошибка: {type(exc).__name__}: {exc}")
+    else:
+        log("[report] выключен (SEND_REPORT не задан)")
     return 0
 
 

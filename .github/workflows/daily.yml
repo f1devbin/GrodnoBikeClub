@@ -42,6 +42,8 @@ jobs:
           AI_API_KEY: ${{ secrets.AI_API_KEY }}
           AI_BASE_URL: ${{ secrets.AI_BASE_URL }}
           AI_MODEL: ${{ secrets.AI_MODEL }}
+          ADMIN_CHAT_ID: ${{ secrets.ADMIN_CHAT_ID }}
+          SEND_REPORT: ${{ vars.SEND_REPORT }}
         run: python main.py
 
       - name: Save state (память об отправленных новостях)
