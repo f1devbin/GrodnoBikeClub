@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 
 from PIL import Image, ImageDraw, ImageFont  # noqa: E402
 
-W, H = 1080, 1620
+W, H = 1080, 1440
 BG_TOP, BG_BOTTOM = (14, 22, 33), (10, 15, 23)
 BUBBLE = (24, 37, 51)
 TEXT = (255, 255, 255)
@@ -61,7 +61,7 @@ def main():
     d.text((W // 2, 78), "канал · 12 ноября", font=font(20), fill=MUTED, anchor="mm")
 
     bx, by, bw = 70, 120, 940
-    bubble_h = 1330
+    bubble_h = 1150
     d.rounded_rectangle([bx, by, bx + bw, by + bubble_h], radius=28, fill=BUBBLE)
 
     x = bx + 36
@@ -82,13 +82,6 @@ def main():
         d.text((x + 24, qy), line, font=qf, fill=(226, 232, 240))
         qy += qf.size + 8
     y = qy + 20
-
-    y = text_block(d, "Главное за день", font(31, "b"), TEXT, x, y, max_w, gap=4, after=10)
-    for bullet in ("Кубок Беларуси по велотреку: яркие финалы в Минске",
-                   "Велопробег в Гродно собрал сотни участников",
-                   "Юная велогонщица из Бреста — призёр международной гонки"):
-        y = text_block(d, "•  " + bullet, font(27), (226, 232, 240), x + 4, y, max_w - 8, gap=6, after=4)
-    y += 12
 
     d.line([x, y, x + max_w, y], fill=LINE, width=2)
     y += 24

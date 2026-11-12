@@ -336,9 +336,8 @@ def weather_text(weather):
     return f"Гродно, {weather['temp']:+d}°, {weather['desc']}"
 
 
-def render(now, intro, entries, outro, highlights=None, rates=None, weather=None):
+def render(now, intro, entries, outro, rates=None, weather=None):
     day = now.astimezone(TZ)
-    highlights = highlights or []
     wl = weather_text(weather)
     head = [
         "🚴 <b>Новости для нас</b>",
@@ -348,11 +347,6 @@ def render(now, intro, entries, outro, highlights=None, rates=None, weather=None
         html.escape(intro),
         "",
     ]
-    if highlights:
-        head.append("<b>Главное за день</b>")
-        head += [f"• {html.escape(h)}" for h in highlights]
-        head.append("")
-
     body = []
     for index, entry in enumerate(entries):
         body.append(f"{NUMBERS[index]} <b>{html.escape(entry['title'])}</b>")
@@ -384,10 +378,9 @@ def render(now, intro, entries, outro, highlights=None, rates=None, weather=None
     return text
 
 
-def render_rich(now, intro, entries, outro, highlights=None, rates=None, weather=None):
+def render_rich(now, intro, entries, outro, rates=None, weather=None):
     """Красивый пост в формате rich message (Bot API 10.x)."""
     day = now.astimezone(TZ)
-    highlights = highlights or []
     wl = weather_text(weather)
     subtitle = f"{day.day} {MONTHS[day.month - 1]}, {WEEKDAYS[day.weekday()]}"
     if wl:
@@ -399,10 +392,6 @@ def render_rich(now, intro, entries, outro, highlights=None, rates=None, weather
         f"<p>{html.escape(subtitle)}</p>",
         f"<blockquote>{html.escape(intro)}</blockquote>",
     ]
-    if highlights:
-        parts.append("<h3>Главное за день</h3>")
-        parts.append("<ul>" + "".join(f"<li>{html.escape(h)}</li>" for h in highlights) + "</ul>")
-
     parts.append("<hr/>")
     for index, entry in enumerate(entries, 1):
         emoji = item_emoji(f"{entry.get('title', '')} {entry.get('summary', '')}")
@@ -500,10 +489,9 @@ def build_prompt(items, now):
 4. Каждую новость перепиши своими словами: короткий заголовок (до 70 символов) и 1–2 предложения (до 220 символов). Тон — бодрый, доброжелательный, без канцелярита и без воды.
 5. Не добавляй ссылки и не придумывай источники.
 6. intro — одно предложение-приветствие (до 140 символов). outro — одна короткая позитивная фраза (до 100 символов).
-7. highlights — 2–3 очень короткие фразы «главного за день» (до 90 символов каждая), только факты из новостей.
-8. Не включай две новости об одном и том же событии.
-9. Верни СТРОГО валидный JSON без markdown и пояснений:
-{{"intro": "...", "highlights": ["...", "..."], "items": [{{"id": 1, "title": "...", "summary": "..."}}], "outro": "..."}}
+7. Не включай две новости об одном и том же событии.
+8. Верни СТРОГО валидный JSON без markdown и пояснений:
+{{"intro": "...", "items": [{{"id": 1, "title": "...", "summary": "..."}}], "outro": "..."}}
 Используй только id из списка выше."""
 
     return system, user
@@ -637,17 +625,7 @@ def ai_message(items, now):
         intro = INTROS[now.weekday() % len(INTROS)]
         outro = "🌿 Хорошего дня и попутного ветра!"
 
-    highlights = []
-    for item in data.get("highlights") or []:
-        if not isinstance(item, str):
-            continue
-        text = short(item, 110)
-        if text and not any(word in text.lower() for word in CFG["negative_keywords"]):
-            highlights.append(text)
-        if len(highlights) >= 3:
-            break
-
-    return picked, picked_src, intro, outro, highlights
+    return picked, picked_src, intro, outro
 
 
 # --------------------------------------------------------------------- Telegram
@@ -783,11 +761,11 @@ def main():
     if rates:
         log(f"[rates] валют: {len(rates.get('fiat', []))}, крипто: {len(rates.get('crypto', []))}")
 
-    entries, used, intro, outro, highlights, mode = None, [], "", "", [], "simple"
+    entries, used, intro, outro, mode = None, [], "", "", "simple"
     if ai_ready and items:
         try:
             log(f"[ai] модель: {ai_settings()['model']}")
-            entries, used, intro, outro, highlights = ai_message(items, now)
+            entries, used, intro, outro = ai_message(items, now)
             mode = "ai"
         except Exception as exc:  # noqa: BLE001
             log(f"[ai] ошибка, переключаюсь на простой режим: {type(exc).__name__}: {exc}")
@@ -796,11 +774,10 @@ def main():
 
     if entries is None:
         entries, used, intro, outro = simple_message(items, now)
-        highlights = []
         mode = "simple"
 
-    classic = render(now, intro, entries, outro, highlights, rates, weather)
-    rich = render_rich(now, intro, entries, outro, highlights, rates, weather)
+    classic = render(now, intro, entries, outro, rates, weather)
+    rich = render_rich(now, intro, entries, outro, rates, weather)
 
     log(f"[digest] режим: {mode}, новостей: {len(entries)}, "
         f"rich: {len(rich)} симв., classic: {len(classic)} симв.")
