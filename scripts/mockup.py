@@ -1,17 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Макет: как будет выглядеть пост в Telegram (приблизительно)."""
+"""Макет: как будет выглядеть пост в Telegram (приблизительно, без обложки)."""
 import os
 import sys
 from datetime import datetime, timezone
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from PIL import Image, ImageDraw, ImageFont  # noqa: E402
 
-from PIL import Image, ImageDraw  # noqa: E402
-
-import extras  # noqa: E402
-
-W, H = 1080, 2100
+W, H = 1080, 1620
 BG_TOP, BG_BOTTOM = (14, 22, 33), (10, 15, 23)
 BUBBLE = (24, 37, 51)
 TEXT = (255, 255, 255)
@@ -27,7 +23,6 @@ FONT_I = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Oblique.ttf"
 
 def font(size, kind="r"):
     path = {"r": FONT, "b": FONT_B, "i": FONT_I}[kind]
-    from PIL import ImageFont
     return ImageFont.truetype(path, size)
 
 
@@ -54,8 +49,6 @@ def text_block(draw, text, fnt, color, x, y, max_w, gap=8, after=14):
 
 
 def main():
-    now = datetime(2026, 11, 12, 9, 0, tzinfo=timezone.utc)
-
     img = Image.new("RGB", (W, H), BG_TOP)
     d = ImageDraw.Draw(img)
     for y in range(H):
@@ -63,35 +56,22 @@ def main():
         d.line([0, y, W, y], fill=tuple(int(BG_TOP[i] + (BG_BOTTOM[i] - BG_TOP[i]) * t) for i in range(3)))
     d = ImageDraw.Draw(img)
 
-    # верхняя панель чата
     d.rectangle([0, 0, W, 92], fill=(23, 33, 43))
-    d.text((W // 2, 46), "Велодайджест", font=font(30, "b"), fill=TEXT, anchor="mm")
-    d.text((W // 2, 78), "группа · 12 ноября", font=font(20), fill=MUTED, anchor="mm")
+    d.text((W // 2, 46), "GrodnoBikeClub", font=font(30, "b"), fill=TEXT, anchor="mm")
+    d.text((W // 2, 78), "канал · 12 ноября", font=font(20), fill=MUTED, anchor="mm")
 
-    # обложка отдельным сообщением
-    cover = Image.open(extras.draw_cover(now, {"temp": 2, "desc": "облачно", "icon": "cloud"},
-                                         "mock_cover.png"))
-    cw, ch = 940, 529
-    cover = cover.resize((cw, ch), Image.LANCZOS)
-    mask = Image.new("L", (cw, ch), 0)
-    ImageDraw.Draw(mask).rounded_rectangle([0, 0, cw, ch], radius=30, fill=255)
-    img.paste(cover, (70, 120), mask)
-    d = ImageDraw.Draw(img)
-
-    # текстовый бабл
-    bx, by, bw = 70, 665, 940
-    bubble_h = 1320
+    bx, by, bw = 70, 120, 940
+    bubble_h = 1330
     d.rounded_rectangle([bx, by, bx + bw, by + bubble_h], radius=28, fill=BUBBLE)
 
     x = bx + 36
     max_w = bw - 72
     y = by + 34
 
-    y = text_block(d, "Велодайджест Беларуси", font(46, "b"), TEXT, x, y, max_w, gap=6, after=8)
+    y = text_block(d, "Новости для нас", font(46, "b"), TEXT, x, y, max_w, gap=6, after=8)
     y = text_block(d, "12 ноября, четверг · Гродно, +2°, облачно · 7 новостей",
                    font(26), MUTED, x, y, max_w, gap=4, after=18)
 
-    # цитата
     quote = "Только хорошие новости: велоспорт Беларуси и жизнь Гродно. Без политики и происшествий."
     qf = font(27, "i")
     qlines = wrap(d, quote, qf, max_w - 30)
@@ -103,7 +83,6 @@ def main():
         qy += qf.size + 8
     y = qy + 20
 
-    # главное за день
     y = text_block(d, "Главное за день", font(31, "b"), TEXT, x, y, max_w, gap=4, after=10)
     for bullet in ("Кубок Беларуси по велотреку: яркие финалы в Минске",
                    "Велопробег в Гродно собрал сотни участников",
@@ -132,8 +111,7 @@ def main():
     d.line([x, y, x + max_w, y], fill=LINE, width=2)
     y += 24
 
-    d.text((x, y), "USD 3,01 · EUR 3,35 · 100 RUB 3,64 · 10 PLN 7,61",
-           font=font(25), fill=(226, 232, 240))
+    d.text((x, y), "USD 3,01 · EUR 3,35 · 100 RUB 3,64 · 10 PLN 7,61", font=font(25), fill=(226, 232, 240))
     y += 38
     d.text((x, y), "BTC $73 461 · ETH $2 047", font=font(25), fill=(226, 232, 240))
     y += 46
@@ -141,8 +119,9 @@ def main():
     d.text((x, y), "Хорошего дня и попутного ветра!", font=font(25), fill=MUTED)
     y += 38
     d.text((x, y), "#велоБеларусь #Гродно", font=font(25), fill=LINK)
+    y += 40
+    d.text((x, y), "@GrodnoBikeClub", font=font(27, "b"), fill=LINK)
 
-    # нижняя панель
     d.rectangle([0, H - 86, W, H], fill=(23, 33, 43))
     d.rounded_rectangle([70, H - 66, W - 70, H - 20], radius=23, fill=(30, 42, 56))
     d.text((100, H - 43), "Сообщение", font=font(24), fill=(110, 125, 140), anchor="lm")

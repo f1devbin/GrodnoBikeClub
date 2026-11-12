@@ -225,12 +225,16 @@
     "use_rich": true
   },
   "cover": {
-    "enabled": true
+    "enabled": false
   },
   "weather": {
     "enabled": true
   },
   "rates": {
     "enabled": true
+  },
+  "channel": {
+    "url": "https://t.me/GrodnoBikeClub",
+    "name": "@GrodnoBikeClub"
   }
 }

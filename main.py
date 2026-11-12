@@ -341,7 +341,7 @@ def render(now, intro, entries, outro, highlights=None, rates=None, weather=None
     highlights = highlights or []
     wl = weather_text(weather)
     head = [
-        "🚴 <b>Велодайджест Беларуси</b>",
+        "🚴 <b>Новости для нас</b>",
         f"🗓 {day.day} {MONTHS[day.month - 1]}, {WEEKDAYS[day.weekday()]}"
         + (f" · {wl}" if wl else ""),
         "",
@@ -372,6 +372,10 @@ def render(now, intro, entries, outro, highlights=None, rates=None, weather=None
     if tail:
         tail.append("")
     tail += [html.escape(outro), "", "#велоБеларусь #Гродно"]
+    channel = CFG.get("channel") or {}
+    if channel.get("url"):
+        label = html.escape(channel.get("name") or channel["url"])
+        tail.append(f'<a href="{html.escape(channel["url"], quote=True)}">{label}</a>')
 
     text = "\n".join(head + body + tail)
     text = re.sub(r"\n{3,}", "\n\n", text).strip()
@@ -391,7 +395,7 @@ def render_rich(now, intro, entries, outro, highlights=None, rates=None, weather
     subtitle += f" · {len(entries)} {plural(len(entries), ('новость', 'новости', 'новостей'))}"
 
     parts = [
-        "<h2>🚴 Велодайджест Беларуси</h2>",
+        "<h2>🚴 Новости для нас</h2>",
         f"<p>{html.escape(subtitle)}</p>",
         f"<blockquote>{html.escape(intro)}</blockquote>",
     ]
@@ -423,6 +427,10 @@ def render_rich(now, intro, entries, outro, highlights=None, rates=None, weather
     outro_clean = re.sub(r"^[\s🌿🍀☀️]+", "", outro).strip() or "Хорошего дня и попутного ветра!"
     parts.append(f"<p>🌿 {html.escape(outro_clean)}</p>")
     parts.append("<p>#велоБеларусь #Гродно</p>")
+    channel = CFG.get("channel") or {}
+    if channel.get("url"):
+        label = html.escape(channel.get("name") or channel["url"])
+        parts.append(f'<p><a href="{html.escape(channel["url"], quote=True)}">{label}</a></p>')
     return "\n".join(parts)
 
 
