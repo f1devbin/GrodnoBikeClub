@@ -111,7 +111,7 @@ def main():
 
     d.text((x, y), "Хорошего дня и попутного ветра!", font=font(25), fill=MUTED)
     y += 38
-    d.text((x, y), "#велоБеларусь #Гродно", font=font(25), fill=LINK)
+    d.text((x, y), "#Гродно", font=font(25), fill=LINK)
     y += 40
     d.text((x, y), "@GrodnoBikeClub", font=font(27, "b"), fill=LINK)
 

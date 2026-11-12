@@ -366,7 +366,7 @@ def render(now, intro, entries, outro, rates=None, weather=None):
         tail.append("₿ " + " · ".join(crypto))
     if tail:
         tail.append("")
-    tail += [html.escape(outro), "", "#велоБеларусь #Гродно"]
+    tail += [html.escape(outro), "", "#Гродно"]
     channel = CFG.get("channel") or {}
     if channel.get("url"):
         label = html.escape(channel.get("name") or channel["url"])
@@ -416,7 +416,7 @@ def render_rich(now, intro, entries, outro, rates=None, weather=None):
     parts.append("<hr/>")
     outro_clean = re.sub(r"^[\s🌿🍀☀️]+", "", outro).strip() or "Хорошего дня и попутного ветра!"
     parts.append(f"<p>🌿 {html.escape(outro_clean)}</p>")
-    parts.append("<p>#велоБеларусь #Гродно</p>")
+    parts.append("<p>#Гродно</p>")
     channel = CFG.get("channel") or {}
     if channel.get("url"):
         label = html.escape(channel.get("name") or channel["url"])
