@@ -215,10 +215,10 @@
   "ai": {
     "enabled": true,
     "base_url": "https://generativelanguage.googleapis.com/v1beta/openai",
-    "model": "gemini-2.5-flash",
+    "model": "models/gemini-flash-lite-latest",
     "temperature": 0.7,
     "max_tokens": 1400,
-    "timeout": 90
+    "timeout": 60
   },
   "telegram": {
     "disable_web_page_preview": true,
