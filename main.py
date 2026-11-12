@@ -540,18 +540,30 @@ def call_ai(system, user):
     if not cfg["base_url"] or not cfg["model"]:
         raise RuntimeError("не заданы base_url/model")
 
-    try:
-        content = _chat_completion(cfg, cfg["model"], system, user)
-        log(f"[ai] ответила модель {cfg['model']}")
-        return content
-    except urllib.error.HTTPError as exc:
-        if exc.code != 404:
-            raise
+    last_error = None
+    for attempt in range(3):
+        try:
+            content = _chat_completion(cfg, cfg["model"], system, user)
+            log(f"[ai] ответила модель {cfg['model']}")
+            return content
+        except urllib.error.HTTPError as exc:
+            last_error = exc
+            if exc.code in (429, 500, 502, 503, 504) and attempt < 2:
+                wait = 5 * (attempt + 1)
+                log(f"[ai] {exc.code}, повтор через {wait} с")
+                time.sleep(wait)
+                continue
+            break
+        except Exception as exc:  # noqa: BLE001
+            last_error = exc
+            break
+
+    if isinstance(last_error, urllib.error.HTTPError) and last_error.code == 404:
         log(f"[ai] модель {cfg['model']} недоступна — ищу альтернативу")
         try:
             models = list_models(cfg)
         except Exception as exc2:  # noqa: BLE001
-            raise RuntimeError(f"не удалось получить список моделей: {exc2}") from exc
+            raise RuntimeError(f"не удалось получить список моделей: {exc2}") from last_error
         log("[ai] доступные модели: " + ", ".join(models[:20]))
         skip = ("image", "tts", "embedding", "live", "audio", "whisper", "guard")
         allowed = [m for m in models if not any(x in m.lower() for x in skip)]
@@ -565,7 +577,10 @@ def call_ai(system, user):
             except Exception as exc3:  # noqa: BLE001
                 log(f"[ai] {model}: {exc3}")
                 continue
-        raise
+
+    if last_error:
+        raise last_error
+    raise RuntimeError("ИИ не ответил")
 
 
 def extract_json(text):
