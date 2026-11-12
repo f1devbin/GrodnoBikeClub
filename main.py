@@ -285,7 +285,8 @@ def allowed(item, now):
             return False
         max_age = timedelta(hours=CFG["digest"]["lookback_hours_grodno"])
     else:
-        if not any(word in text for word in CFG["cycling_keywords"]):
+        # релевантность — по заголовку, чтобы не тянуть гаджеты из описаний
+        if not any(word in item["title"].lower() for word in CFG["cycling_keywords"]):
             return False
         max_age = timedelta(hours=CFG["digest"]["lookback_hours_cycling"])
 
@@ -300,7 +301,7 @@ def rank(item):
     score = sum(1 for word in CFG["cycling_keywords"] if word in text)
     if item["kind"] == "cycling":
         score += 2
-    return (score, item["dt"])
+    return (item["dt"], score)  # сначала самые свежие
 
 
 # --------------------------------------------------------------------- compose

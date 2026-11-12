@@ -2,7 +2,7 @@
   "digest": {
     "max_items": 7,
     "min_cycling": 3,
-    "lookback_hours_cycling": 1440,
+    "lookback_hours_cycling": 8760,
     "lookback_hours_grodno": 48,
     "max_input_items": 30
   },
@@ -293,7 +293,11 @@
     "агитац",
     "мигрант",
     "беженец",
-    "эмбарго"
+    "эмбарго",
+    "столкнул",
+    "смарт-час",
+    "наушник",
+    "смартфон"
   ],
   "ai": {
     "enabled": true,
