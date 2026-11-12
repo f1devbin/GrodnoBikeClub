@@ -456,8 +456,8 @@ def simple_message(items, now):
 # --------------------------------------------------------------------- AI
 def ai_settings():
     cfg = dict(CFG.get("ai", {}))
-    cfg["base_url"] = os.environ.get("AI_BASE_URL", cfg.get("base_url", "")).rstrip("/")
-    cfg["model"] = os.environ.get("AI_MODEL", cfg.get("model", ""))
+    cfg["base_url"] = (os.environ.get("AI_BASE_URL") or cfg.get("base_url", "")).rstrip("/")
+    cfg["model"] = os.environ.get("AI_MODEL") or cfg.get("model", "")
     cfg["api_key"] = os.environ.get("AI_API_KEY", "")
     return cfg
 
