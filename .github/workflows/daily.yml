@@ -1,0 +1,61 @@
+name: Velo Digest
+
+on:
+  schedule:
+    # 09:00 UTC = 12:00 по Минску (UTC+3, круглый год)
+    - cron: "0 9 * * *"
+  workflow_dispatch:
+
+# Нужно, чтобы workflow мог закоммитить state.json (память о новостях)
+permissions:
+  contents: write
+
+concurrency:
+  group: velo-digest
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Зависимости
+        run: pip install -r requirements.txt
+
+      - name: Syntax check
+        run: python -m py_compile main.py
+
+      - name: Build and publish
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_THREAD_ID: ${{ secrets.TELEGRAM_THREAD_ID }}
+          AI_API_KEY: ${{ secrets.AI_API_KEY }}
+        run: python main.py
+
+      - name: Save state (память об отправленных новостях)
+        if: success()
+        continue-on-error: true
+        run: |
+          if [ ! -f state.json ]; then
+            echo "state.json не найден — пропускаю"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state.json
+          if git diff --cached --quiet; then
+            echo "state.json без изменений"
+            exit 0
+          fi
+          git commit -m "chore: update digest state [skip ci]"
+          git push
