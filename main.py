@@ -564,10 +564,10 @@ def call_ai(system, user):
         except Exception as exc2:  # noqa: BLE001
             raise RuntimeError(f"не удалось получить список моделей: {exc2}") from exc
         log("[ai] доступные модели: " + ", ".join(models[:20]))
-        skip = ("image", "tts", "embedding", "live", "audio")
-        preferred = [m for m in models
-                     if "flash" in m.lower() and not any(x in m.lower() for x in skip)]
-        for model in preferred[:3]:
+        skip = ("image", "tts", "embedding", "live", "audio", "whisper", "guard")
+        allowed = [m for m in models if not any(x in m.lower() for x in skip)]
+        flash = [m for m in allowed if "flash" in m.lower()]
+        for model in (flash or allowed)[:3]:
             try:
                 log(f"[ai] пробую {model}")
                 content = _chat_completion(cfg, model, system, user)
