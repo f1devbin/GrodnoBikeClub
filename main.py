@@ -544,7 +544,9 @@ def call_ai(system, user):
         raise RuntimeError("не заданы base_url/model")
 
     try:
-        return _chat_completion(cfg, cfg["model"], system, user)
+        content = _chat_completion(cfg, cfg["model"], system, user)
+        log(f"[ai] ответила модель {cfg['model']}")
+        return content
     except urllib.error.HTTPError as exc:
         if exc.code != 404:
             raise
@@ -560,8 +562,11 @@ def call_ai(system, user):
         for model in preferred[:3]:
             try:
                 log(f"[ai] пробую {model}")
-                return _chat_completion(cfg, model, system, user)
-            except Exception:  # noqa: BLE001
+                content = _chat_completion(cfg, model, system, user)
+                log(f"[ai] ответила модель {model}")
+                return content
+            except Exception as exc3:  # noqa: BLE001
+                log(f"[ai] {model}: {exc3}")
                 continue
         raise
 
@@ -615,8 +620,8 @@ def ai_message(items, now):
         if len(picked) >= CFG["digest"]["max_items"]:
             break
 
-    if len(picked) < 2:
-        raise ValueError(f"ИИ отобрал слишком мало новостей ({len(picked)})")
+    if not picked:
+        raise ValueError("ИИ не отобрал ни одной новости")
 
     intro = short(data.get("intro") or INTROS[now.weekday() % len(INTROS)], 160)
     outro = short(data.get("outro") or "🌿 Хорошего дня и попутного ветра!", 120)
@@ -771,7 +776,7 @@ def main():
         log(f"[rates] валют: {len(rates.get('fiat', []))}, крипто: {len(rates.get('crypto', []))}")
 
     entries, used, intro, outro, highlights, mode = None, [], "", "", [], "simple"
-    if ai_ready:
+    if ai_ready and items:
         try:
             log(f"[ai] модель: {ai_settings()['model']}")
             entries, used, intro, outro, highlights = ai_message(items, now)
