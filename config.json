@@ -2,7 +2,7 @@
   "digest": {
     "max_items": 7,
     "min_cycling": 3,
-    "lookback_hours_cycling": 8760,
+    "lookback_hours_cycling": 168,
     "lookback_hours_grodno": 48,
     "max_input_items": 30
   },
