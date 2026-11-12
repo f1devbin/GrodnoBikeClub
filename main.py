@@ -774,7 +774,9 @@ def main():
                 and bool(os.environ.get("AI_API_KEY")))
 
     weather = extras.fetch_weather() if CFG.get("weather", {}).get("enabled", True) else None
-    rates = extras.fetch_rates() if CFG.get("rates", {}).get("enabled", True) else None
+    rates_cfg = CFG.get("rates", {})
+    rates = (extras.fetch_rates(rates_cfg.get("crypto"), rates_cfg.get("fiat"))
+             if rates_cfg.get("enabled", True) else None)
     if weather:
         log(f"[weather] Гродно {weather['temp']:+d}°, {weather['desc']}")
     if rates:

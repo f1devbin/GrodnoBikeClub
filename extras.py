@@ -70,13 +70,21 @@ def fetch_weather():
 
 
 # -------------------------------------------------------------------- rates
-def fetch_rates():
+DEFAULT_CRYPTO = [
+    {"id": "bitcoin", "label": "BTC"},
+    {"id": "ethereum", "label": "ETH"},
+]
+
+
+def fetch_rates(crypto=None, fiat=None):
     """Курсы НБРБ (BYN) и криптовалют (USD). Любая часть может отсутствовать."""
     result = {"fiat": [], "crypto": [], "date": None}
+    crypto = crypto or DEFAULT_CRYPTO
+    fiat = fiat or ["USD", "EUR", "RUB", "PLN"]
 
     data = http_json("https://api.nbrb.by/exrates/rates?periodicity=0")
     if isinstance(data, list):
-        wanted = ["USD", "EUR", "RUB", "PLN"]
+        wanted = list(fiat)
         found = {}
         for row in data:
             code = row.get("Cur_Abbreviation")
@@ -89,13 +97,14 @@ def fetch_rates():
                         result["date"] = str(row["Date"])[:10]
         result["fiat"] = [(c, found[c][0], found[c][1]) for c in wanted if c in found]
 
+    ids = ",".join(coin["id"] for coin in crypto)
     data = http_json("https://api.coingecko.com/api/v3/simple/price"
-                     "?ids=bitcoin,ethereum&vs_currencies=usd")
+                     f"?ids={ids}&vs_currencies=usd")
     if isinstance(data, dict):
-        for key, label in (("bitcoin", "BTC"), ("ethereum", "ETH")):
-            usd = (data.get(key) or {}).get("usd")
+        for coin in crypto:
+            usd = (data.get(coin["id"]) or {}).get("usd")
             if usd:
-                result["crypto"].append((label, float(usd)))
+                result["crypto"].append((coin["label"], float(usd)))
 
     if not result["fiat"] and not result["crypto"]:
         return None
@@ -118,7 +127,8 @@ def rates_lines(rates):
         else:
             fiat.append(f"{code} {fmt_num(value)}")
     for code, value in rates.get("crypto", []):
-        crypto.append(f"{code} ${fmt_num(value, 0)}")
+        digits = 2 if value < 100 else 0
+        crypto.append(f"{code} ${fmt_num(value, digits)}")
     return fiat, crypto
 
 

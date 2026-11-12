@@ -318,7 +318,31 @@
     "enabled": true
   },
   "rates": {
-    "enabled": true
+    "enabled": true,
+    "fiat": [
+      "USD",
+      "EUR",
+      "RUB",
+      "PLN"
+    ],
+    "crypto": [
+      {
+        "id": "bitcoin",
+        "label": "BTC"
+      },
+      {
+        "id": "ethereum",
+        "label": "ETH"
+      },
+      {
+        "id": "solana",
+        "label": "SOL"
+      },
+      {
+        "id": "the-open-network",
+        "label": "GRAM"
+      }
+    ]
   },
   "channel": {
     "url": "https://t.me/GrodnoBikeClub",

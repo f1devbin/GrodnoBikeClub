@@ -106,7 +106,7 @@ def main():
 
     d.text((x, y), "USD 3,01 · EUR 3,35 · 100 RUB 3,64 · 10 PLN 7,61", font=font(25), fill=(226, 232, 240))
     y += 38
-    d.text((x, y), "BTC $73 461 · ETH $2 047", font=font(25), fill=(226, 232, 240))
+    d.text((x, y), "BTC $73 411 · ETH $2 044 · SOL $83,20 · GRAM $1,42", font=font(25), fill=(226, 232, 240))
     y += 46
 
     d.text((x, y), "Хорошего дня и попутного ветра!", font=font(25), fill=MUTED)
