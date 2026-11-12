@@ -5,6 +5,8 @@ on:
     # 09:00 UTC = 12:00 по Минску (UTC+3, круглый год)
     - cron: "0 9 * * *"
   workflow_dispatch:
+  push:
+    branches: [main]
 
 # Нужно, чтобы workflow мог закоммитить state.json (память о новостях)
 permissions:
