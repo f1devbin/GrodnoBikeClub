@@ -765,6 +765,9 @@ def main():
     items, skipped = collect(now, state)
     if skipped:
         log(f"[state] пропущено уже отправленных: {skipped}")
+    if not items:
+        log("[skip] новых новостей нет — пост не публикуем")
+        return 0
 
     ai_ready = (CFG.get("ai", {}).get("enabled", True)
                 and not args.no_ai
