@@ -163,8 +163,14 @@ def load_state(path):
     return {"sent": {}}
 
 
+def state_retention_days():
+    """Сколько дней хранить отпечатки: окно поиска + запас, но не меньше 45."""
+    lookback = CFG["digest"].get("lookback_hours_cycling", 720) / 24.0
+    return max(45, int(round(lookback)) + 30)
+
+
 def save_state(path, state):
-    cutoff = (datetime.now(timezone.utc) - timedelta(days=45)).isoformat()
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=state_retention_days())).isoformat()
     state["sent"] = {k: v for k, v in state.get("sent", {}).items() if v >= cutoff}
     Path(path).write_text(json.dumps(state, ensure_ascii=False, indent=1), "utf-8")
 

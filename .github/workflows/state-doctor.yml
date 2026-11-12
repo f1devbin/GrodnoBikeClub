@@ -1,0 +1,37 @@
+name: State Doctor
+
+on:
+  schedule:
+    # каждое воскресенье в 10:00 UTC
+    - cron: "0 10 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  doctor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Почистить state.json
+        run: python scripts/state_doctor.py
+
+      - name: Закоммитить изменения
+        continue-on-error: true
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state.json
+          if git diff --cached --quiet; then
+            echo "state.json без изменений"
+            exit 0
+          fi
+          git commit -m "chore: state doctor [skip ci]"
+          git push
