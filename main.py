@@ -501,15 +501,9 @@ def build_prompt(items, now):
     return system, user
 
 
-def call_ai(system, user):
-    cfg = ai_settings()
-    if not cfg["api_key"]:
-        raise RuntimeError("AI_API_KEY не задан")
-    if not cfg["base_url"] or not cfg["model"]:
-        raise RuntimeError("не заданы base_url/model")
-
+def _chat_completion(cfg, model, system, user):
     payload = {
-        "model": cfg["model"],
+        "model": model,
         "messages": [
             {"role": "system", "content": system},
             {"role": "user", "content": user},
@@ -528,9 +522,48 @@ def call_ai(system, user):
         method="POST",
     )
     with urllib.request.urlopen(req, timeout=cfg.get("timeout", 90)) as resp:
-        raw = resp.read()
-    body = json.loads(raw)
+        body = json.loads(resp.read())
     return body["choices"][0]["message"]["content"]
+
+
+def list_models(cfg):
+    req = urllib.request.Request(
+        cfg["base_url"] + "/models",
+        headers={"Authorization": f"Bearer {cfg['api_key']}"},
+    )
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        data = json.loads(resp.read())
+    return [m.get("id") for m in data.get("data", []) if m.get("id")]
+
+
+def call_ai(system, user):
+    cfg = ai_settings()
+    if not cfg["api_key"]:
+        raise RuntimeError("AI_API_KEY не задан")
+    if not cfg["base_url"] or not cfg["model"]:
+        raise RuntimeError("не заданы base_url/model")
+
+    try:
+        return _chat_completion(cfg, cfg["model"], system, user)
+    except urllib.error.HTTPError as exc:
+        if exc.code != 404:
+            raise
+        log(f"[ai] модель {cfg['model']} недоступна — ищу альтернативу")
+        try:
+            models = list_models(cfg)
+        except Exception as exc2:  # noqa: BLE001
+            raise RuntimeError(f"не удалось получить список моделей: {exc2}") from exc
+        log("[ai] доступные модели: " + ", ".join(models[:20]))
+        skip = ("image", "tts", "embedding", "live", "audio")
+        preferred = [m for m in models
+                     if "flash" in m.lower() and not any(x in m.lower() for x in skip)]
+        for model in preferred[:3]:
+            try:
+                log(f"[ai] пробую {model}")
+                return _chat_completion(cfg, model, system, user)
+            except Exception:  # noqa: BLE001
+                continue
+        raise
 
 
 def extract_json(text):
