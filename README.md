@@ -166,6 +166,20 @@ Telegram: ежедневно в 12:00 по Минску
 | Groq | `https://api.groq.com/openai/v1` | `llama-3.3-70b-versatile` |
 | DeepSeek | `https://api.deepseek.com` | `deepseek-chat` |
 
+### Смена провайдера ИИ
+
+Код работает с любым OpenAI-совместимым API. Чтобы перейти на Groq, добавьте
+три секрета (и удалите старый `AI_API_KEY` или замените его):
+
+| Секрет | Значение |
+|---|---|
+| `AI_API_KEY` | ключ Groq (`gsk_...`) |
+| `AI_BASE_URL` | `https://api.groq.com/openai/v1` |
+| `AI_MODEL` | `llama-3.3-70b-versatile` |
+
+Другие варианты: OpenRouter (`https://openrouter.ai/api/v1`), DeepSeek
+(`https://api.deepseek.com`). Менять код при этом не нужно.
+
 ### Шаг 4. Загрузите проект на GitHub
 
 1. Создайте новый репозиторий (можно **приватный**).
@@ -187,6 +201,8 @@ Telegram: ежедневно в 12:00 по Минску
 | `TELEGRAM_BOT_TOKEN` | токен из шага 1 |
 | `TELEGRAM_CHAT_ID` | id группы из шага 2 |
 | `AI_API_KEY` | ключ ИИ из шага 3 (можно пропустить — будет простой режим) |
+| `AI_BASE_URL` | необязательно: сменить провайдера ИИ (например, Groq) |
+| `AI_MODEL` | необязательно: имя модели у провайдера |
 | `TELEGRAM_THREAD_ID` | необязательно, id темы в супергруппе |
 
 ### Шаг 6. Проверьте
