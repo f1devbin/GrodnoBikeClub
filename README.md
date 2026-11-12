@@ -1,5 +1,10 @@
 # 🚴 Велодайджест Беларуси → Telegram
 
+[![Velo Digest](https://github.com/f1devbin/GrodnoBikeClub/actions/workflows/daily.yml/badge.svg)](https://github.com/f1devbin/GrodnoBikeClub/actions/workflows/daily.yml)
+[![Python](https://img.shields.io/badge/python-3.12-blue)](https://www.python.org/)
+[![Pillow](https://img.shields.io/badge/pillow-%E2%89%A510-orange)](https://python-pillow.org/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
 Бот каждый день в **12:00 по Минску** собирает велосипедные новости Беларуси,
 даёт ИИ-модели отобрать лучшее и переписать в позитивном тоне, а если велоновостей
 мало — добавляет добрые новости Гродно. Готовый пост публикуется в вашу
@@ -7,6 +12,21 @@ Telegram-группу.
 
 **Главное:** бот работает на серверах GitHub (GitHub Actions), а не на вашем
 компьютере. Компьютер можно выключать — публикация всё равно произойдёт.
+
+![Как выглядит пост](mockup.png)
+
+---
+
+## Возможности
+
+- 🤖 **ИИ-редактор** — отбирает новости, пишет «Главное за день» и переписывает
+  тексты в позитивном тоне (Gemini, любая OpenAI-совместимая модель).
+- 🚫 **Без негатива** — двойной фильтр: стоп-слова + инструкция модели.
+- 🖼 **Обложка каждый день** — дата, день недели и погода в Гродно.
+- 💱 **Курсы** — НБРБ (USD, EUR, RUB, PLN) и CoinGecko (BTC, ETH).
+- 🧠 **Память** — уже опубликованные новости не повторяются (`state.json`).
+- 🎨 **Rich-посты** Bot API 10.x: заголовки, цитата, список, разделители.
+- 🕛 **Расписание** — ежедневно в 12:00 по Минску, ПК может быть выключен.
 
 ---
 
@@ -271,4 +291,9 @@ requirements.txt               — зависимость: pillow
 .github/workflows/daily.yml    — расписание и запуск на GitHub
 scripts/mockup.py              — генерация макета поста
 mockup.png                     — пример, как выглядит пост
+LICENSE                        — MIT
 ```
+
+## Лицензия
+
+MIT — см. [LICENSE](LICENSE).
