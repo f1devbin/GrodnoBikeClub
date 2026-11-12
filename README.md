@@ -257,6 +257,27 @@ python3 main.py --classic      # принудительно обычный фо�
 
 ---
 
+## Сайт на GitHub Pages
+
+Каждый выпуск сохраняется в `issues/YYYY-MM-DD.json`, из которого собирается
+статический сайт (`scripts/build_site.py`):
+
+- главная с последним выпуском и архивом;
+- отдельные страницы выпусков;
+- `feed.xml` (RSS), `sitemap.xml`, `robots.txt`;
+- SEO: `canonical`, Open Graph, Twitter Card, JSON-LD (`NewsArticle` + `ItemList`);
+- адаптивная тёмная вёрстка без внешних библиотек.
+
+![Как выглядит сайт](site-preview.png)
+
+Сборка и деплой — workflow **Site** (при изменениях в `issues/` или вручную).
+Включить: **Settings → Pages → Source: GitHub Actions**.
+
+Адрес для этого репозитория: `https://f1devbin.github.io/GrodnoBikeClub`
+(для приватного репозитория GitHub Pages требует платный план; для публичного — бесплатно).
+
+---
+
 ## Настройка `config.json`
 
 | Параметр | Что делает |

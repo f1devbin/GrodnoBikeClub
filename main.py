@@ -755,6 +755,30 @@ def send_photo(token, chat_id, path, caption=None, silent=True):
     return result
 
 
+def save_issue(now, entries, intro, outro, weather, rates):
+    """Сохраняет выпуск в issues/YYYY-MM-DD.json для сайта."""
+    day = now.astimezone(TZ)
+    folder = BASE / "issues"
+    folder.mkdir(exist_ok=True)
+    fiat, crypto = extras.rates_lines(rates)
+    data = {
+        "date": day.isoformat(),
+        "intro": intro,
+        "outro": outro,
+        "weather": weather,
+        "rates": {"fiat": fiat, "crypto": crypto},
+        "items": [
+            {"title": e.get("title", ""), "summary": e.get("summary", ""),
+             "url": e.get("url", ""), "source": e.get("source", "")}
+            for e in entries
+        ],
+    }
+    path = folder / f"{day:%Y-%m-%d}.json"
+    path.write_text(json.dumps(data, ensure_ascii=False, indent=1), "utf-8")
+    log(f"[issue] сохранён {path.name}")
+    return path
+
+
 def build_report(now, used, mode, weather, rates, result):
     day = now.astimezone(TZ)
     cycling = sum(1 for item in used if item.get("kind") == "cycling")
@@ -894,6 +918,10 @@ def main():
         mark_sent(state, used, now)
         save_state(args.state, state)
         log(f"[state] записано {len(used)} новостей")
+        try:
+            save_issue(now, entries, intro, outro, weather, rates)
+        except Exception as exc:  # noqa: BLE001
+            log(f"[issue] не сохранён: {type(exc).__name__}: {exc}")
 
     report = build_report(now, used, mode, weather, rates, sent_result)
     if str(os.environ.get("SEND_REPORT", "")).lower() in ("1", "true", "yes", "on"):

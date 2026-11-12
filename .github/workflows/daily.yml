@@ -56,10 +56,10 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add state.json
+          git add state.json issues/
           if git diff --cached --quiet; then
             echo "state.json без изменений"
             exit 0
           fi
-          git commit -m "chore: update digest state [skip ci]"
+          git commit -m "chore: publish digest"
           git push

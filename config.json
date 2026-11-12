@@ -347,5 +347,10 @@
   "channel": {
     "url": "https://t.me/GrodnoBikeClub",
     "name": "@GrodnoBikeClub"
+  },
+  "site": {
+    "title": "Новости для нас",
+    "url": "https://f1devbin.github.io/GrodnoBikeClub",
+    "channel": "https://t.me/GrodnoBikeClub"
   }
 }
