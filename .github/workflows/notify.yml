@@ -1,0 +1,30 @@
+name: Notify
+
+on:
+  workflow_dispatch:
+    inputs:
+      text:
+        description: "Текст сообщения"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Отправить сообщение
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          ADMIN_CHAT_ID: ${{ secrets.ADMIN_CHAT_ID }}
+          MESSAGE: ${{ inputs.text }}
+        run: python scripts/alert.py "$MESSAGE"
