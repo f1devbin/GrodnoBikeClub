@@ -1,0 +1,34 @@
+{
+ "date": "2026-11-13T19:54:24.482810+03:00",
+ "intro": "Всем привет! Ловите свежие спортивные новости нашего любимого Гродно.",
+ "outro": "Всем отличной недели и крутых поездок!",
+ "weather": null,
+ "rates": {
+  "fiat": [
+   "USD 3,00",
+   "EUR 3,33",
+   "100 RUB 3,64",
+   "10 PLN 7,57"
+  ],
+  "crypto": [
+   "BTC $68 595",
+   "ETH $1 926",
+   "SOL $79,47",
+   "GRAM $1,13"
+  ]
+ },
+ "items": [
+  {
+   "title": "Успех на юношеских Олимпийских играх",
+   "summary": "Белорусские спортсмены отлично проявили себя на международной арене и привезли домой три заслуженные медали. Поздравляем наших ребят с прекрасным результатом!",
+   "url": "https://grodnonews.by/news/sport/medali_belarus_olimpiyskie_dakar.html",
+   "source": "grodnonews.by"
+  },
+  {
+   "title": "Меткий турнир для журналистов",
+   "summary": "В Гродно прошли увлекательные соревнования по стрельбе среди работников СМИ и пресс-служб. Участники показали отличную сноровку и зарядились позитивом.",
+   "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1OTWRpNVM3MktzSkdjYkdwY0lnUWJrR1ZNTm85ZnNxdDNPWER0UnhONnQ4TTNwQTdiZjU4b3U4Z1hVMmgybEl3Sk1qVkxfSk8wZkdDVzNmZW9rdW4xR0VOMDNWcHR6ZGc?oc=5",
+   "source": "Гродненская правда"
+  }
+ ]
+}
