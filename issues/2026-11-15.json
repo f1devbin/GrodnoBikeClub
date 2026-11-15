@@ -1,0 +1,46 @@
+{
+ "date": "2026-11-15T19:01:59.785851+03:00",
+ "intro": "Всем привет! Ловите свежие новости родного края для отличного настроения!",
+ "outro": "Всем ровных дорог и отличных веловыходных!",
+ "weather": {
+  "temp": 4,
+  "desc": "ясно",
+  "icon": "sun",
+  "tmax": 6,
+  "tmin": 2
+ },
+ "rates": {
+  "fiat": [
+   "USD 3,00",
+   "EUR 3,33",
+   "100 RUB 3,64",
+   "10 PLN 7,57"
+  ],
+  "crypto": [
+   "BTC $64 703",
+   "ETH $1 809",
+   "SOL $71,20",
+   "GRAM $1,05"
+  ]
+ },
+ "items": [
+  {
+   "title": "Праздник мельников в Одельске",
+   "summary": "Знаменитый агрогородок принимает яркий брендовый праздник «Свята млынароў». Отличный повод отправиться туда на выходных!",
+   "url": "https://grodnonews.by/news/kultura/odelsk_svyata_mlynaro_.html",
+   "source": "grodnonews.by"
+  },
+  {
+   "title": "Туризм на Гродненщине",
+   "summary": "Регион посетят туроператоры из России, чтобы познакомиться с нашими красотами. Ждем еще больше гостей на наших маршрутах!",
+   "url": "https://grodnonews.by/news/kultura/grodnenshchina_turoperatory_rossii.html",
+   "source": "grodnonews.by"
+  },
+  {
+   "title": "Красивые победы в баскетболе",
+   "summary": "Фавориты национального чемпионата успешно провели матчи очередного тура. Спорт вдохновляет на новые свершения!",
+   "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPS0xzci0yUFc1WE1uTmlhWmJYc1dOUXB1YUdLVlZMdEg2QjlMd082RVBQNkhDWEI3Y3BpQnRKUDl2WXNzUnFKWlp0NFNLRlAtLTJSclkwclA0SUg3VnRvUXpyWDI5aUVkeFBrWVFjXzBJRE9jS1dYMTVBZm1OZzJkNGxnVkVRTjhWRXljSDc1b3l5MTF0bzkzb002Z25vMm8xWjFlUUQwaVRTNTZsZEtPaDFLWXJzTjRwamc?oc=5",
+   "source": "Новости Беларуси | БелТА"
+  }
+ ]
+}
