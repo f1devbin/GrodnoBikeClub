@@ -285,6 +285,10 @@ def allowed(item, now):
     if any(word in text for word in CFG["negative_keywords"]):
         return False
 
+    # мероприятия госструктур не берём
+    if any(word in text for word in CFG.get("state_keywords", [])):
+        return False
+
     if item["kind"] == "grodno":
         topics = any(word in text for word in CFG["grodno_topics"])
         if not topics:
@@ -337,13 +341,43 @@ def item_emoji(text):
     return "🚴"
 
 
+HOLIDAY_CAP = 6
+
+
+def load_holidays():
+    try:
+        return json.loads((BASE / "holidays.json").read_text("utf-8"))
+    except Exception:  # noqa: BLE001
+        return {}
+
+
+def todays_holidays(now, data=None):
+    data = data if data is not None else load_holidays()
+    day = now.astimezone(TZ)
+    names = list(data.get(f"{day.month:02d}-{day.day:02d}") or [])
+    for rule in data.get("_rules") or []:
+        kind = rule.get("type")
+        if kind == "day_of_year" and day.timetuple().tm_yday == int(rule.get("n", 0)):
+            names.append(rule.get("name", ""))
+        elif (kind == "last_weekday" and day.month == int(rule.get("month", 0))
+              and day.weekday() == int(rule.get("weekday", -1))
+              and (day + timedelta(days=7)).month != day.month):
+            names.append(rule.get("name", ""))
+    seen, result = set(), []
+    for name in names:
+        if name and name not in seen:
+            seen.add(name)
+            result.append(name)
+    return result
+
+
 def weather_text(weather):
     if not weather:
         return ""
     return f"Гродно, {weather['temp']:+d}°, {weather['desc']}"
 
 
-def render(now, intro, entries, outro, rates=None, weather=None):
+def render(now, intro, entries, outro, rates=None, weather=None, holidays=None):
     day = now.astimezone(TZ)
     wl = weather_text(weather)
     head = [
@@ -366,6 +400,9 @@ def render(now, intro, entries, outro, rates=None, weather=None):
 
     fiat, crypto = extras.rates_lines(rates)
     tail = []
+    if holidays:
+        tail.append("🎉 Сегодня: " + " · ".join(holidays[:HOLIDAY_CAP]))
+        tail.append("")
     if fiat:
         tail.append("💱 " + " · ".join(fiat))
     if crypto:
@@ -385,7 +422,7 @@ def render(now, intro, entries, outro, rates=None, weather=None):
     return text
 
 
-def render_rich(now, intro, entries, outro, rates=None, weather=None):
+def render_rich(now, intro, entries, outro, rates=None, weather=None, holidays=None):
     """Красивый пост в формате rich message (Bot API 10.x)."""
     day = now.astimezone(TZ)
     wl = weather_text(weather)
@@ -410,6 +447,11 @@ def render_rich(now, intro, entries, outro, rates=None, weather=None):
             parts.append(
                 f"<p><a href=\"{html.escape(entry['url'], quote=True)}\">→ {label}</a></p>"
             )
+
+    if holidays:
+        parts.append("<hr/>")
+        parts.append("<p>🎉 <b>Сегодня:</b> "
+                     + html.escape(" · ".join(holidays[:HOLIDAY_CAP])) + "</p>")
 
     fiat, crypto = extras.rates_lines(rates)
     if fiat or crypto:
@@ -755,7 +797,7 @@ def send_photo(token, chat_id, path, caption=None, silent=True):
     return result
 
 
-def save_issue(now, entries, intro, outro, weather, rates):
+def save_issue(now, entries, intro, outro, weather, rates, holidays=None):
     """Сохраняет выпуск в issues/YYYY-MM-DD.json для сайта."""
     day = now.astimezone(TZ)
     folder = BASE / "issues"
@@ -767,6 +809,7 @@ def save_issue(now, entries, intro, outro, weather, rates):
         "outro": outro,
         "weather": weather,
         "rates": {"fiat": fiat, "crypto": crypto},
+        "holidays": holidays or [],
         "items": [
             {"title": e.get("title", ""), "summary": e.get("summary", ""),
              "url": e.get("url", ""), "source": e.get("source", "")}
@@ -853,6 +896,10 @@ def main():
     if rates:
         log(f"[rates] валют: {len(rates.get('fiat', []))}, крипто: {len(rates.get('crypto', []))}")
 
+    holidays = todays_holidays(now)
+    if holidays:
+        log("[holidays] " + "; ".join(holidays))
+
     entries, used, intro, outro, mode = None, [], "", "", "simple"
     if ai_ready and items:
         try:
@@ -868,8 +915,8 @@ def main():
         entries, used, intro, outro = simple_message(items, now)
         mode = "simple"
 
-    classic = render(now, intro, entries, outro, rates, weather)
-    rich = render_rich(now, intro, entries, outro, rates, weather)
+    classic = render(now, intro, entries, outro, rates, weather, holidays)
+    rich = render_rich(now, intro, entries, outro, rates, weather, holidays)
 
     log(f"[digest] режим: {mode}, новостей: {len(entries)}, "
         f"rich: {len(rich)} симв., classic: {len(classic)} симв.")
@@ -919,7 +966,7 @@ def main():
         save_state(args.state, state)
         log(f"[state] записано {len(used)} новостей")
         try:
-            save_issue(now, entries, intro, outro, weather, rates)
+            save_issue(now, entries, intro, outro, weather, rates, holidays)
         except Exception as exc:  # noqa: BLE001
             log(f"[issue] не сохранён: {type(exc).__name__}: {exc}")
 
