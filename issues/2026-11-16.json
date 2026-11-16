@@ -1,0 +1,46 @@
+{
+ "date": "2026-11-16T22:12:33.556883+03:00",
+ "intro": "Всем привет! Ловите порцию отличных новостей из мира спорта и нашего любимого Гродно.",
+ "outro": "Всем отличной недели и крутых велопутешествий!",
+ "weather": null,
+ "rates": {
+  "fiat": [
+   "USD 3,00",
+   "EUR 3,32",
+   "100 RUB 3,65",
+   "10 PLN 7,53"
+  ],
+  "crypto": [
+   "BTC $64 903",
+   "ETH $1 816",
+   "SOL $71,19",
+   "GRAM $1,04"
+  ]
+ },
+ "holidays": [
+  "День рукоделия",
+  "День самбо в России",
+  "Всероссийский день проектировщика",
+  "День работников радио, телевидения и связи Украины"
+ ],
+ "items": [
+  {
+   "title": "Яркое гродненское дерби",
+   "summary": "В захватывающем матче чемпионата команда «Гродно-93» одержала победу над «Гродно-93-ГрГУ». Поздравляем спортсменов с красивой игрой!",
+   "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPLWVNaWlyRnltT3M2RU5ZZU01Mm5zS1c4LTlzdzYxOVRBbi1yeHF5ZmZTSWstT2ZqS0tFTUxwbndxRWh1Zy1ybEhkUmNMUFh4SjY2NXRsY0o0MXJHRnZiV0NROG5GWUxpZjg0QVN0YUVoUmJoY0NCOXNEVWZxWWw5NVNxdExRRUFVOTRSRVlLcVJFakU1NjlKbVg5bDVrMl9NT3pLbVVmU1RWWXZiZ1h3YWJWOEhseTNJa09VZ3lHdnlheTUyQm9fSg?oc=5",
+   "source": "Гродно Плюс"
+  },
+  {
+   "title": "Гонки на внедорожниках под Гродно",
+   "summary": "Уже 21 ноября любителей драйва и зрелищных состязаний ждут захватывающие кольцевые гонки недалеко от города.",
+   "url": "https://grodnonews.by/news/sport/koltsevye_gonki_grodno.html",
+   "source": "grodnonews.by"
+  },
+  {
+   "title": "Серебро Кубка ШОС в Москве",
+   "summary": "Талантливая гродненка продемонстрировала отличный результат и завоевала престижную серебряную медаль на соревнованиях.",
+   "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTFBXTFJ5Zkt5M2VPVGpoUHNRQXd4QktGTkRuTVJyanJZQXhybF9Ma25rRDdTWGFrWnJuZFdNeVdUdjd1eXNxZC1qVXA1QVVIWU8tVWZZbmtUUVNkN2lFbjN4MzZLdk4wWmZYRk85MlhvdzBKdTYy?oc=5",
+   "source": "Гродненская правда"
+  }
+ ]
+}
