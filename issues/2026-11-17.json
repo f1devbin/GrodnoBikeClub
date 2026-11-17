@@ -1,0 +1,58 @@
+{
+ "date": "2026-11-17T21:05:39.426757+03:00",
+ "intro": "Всем привет! Ловите свежие и вдохновляющие новости нашего велодайджеста.",
+ "outro": "Крутите педали с улыбкой и отличного всем дня!",
+ "weather": {
+  "temp": 3,
+  "desc": "ясно",
+  "icon": "sun",
+  "tmax": 7,
+  "tmin": 1
+ },
+ "rates": {
+  "fiat": [
+   "USD 3,00",
+   "EUR 3,30",
+   "100 RUB 3,65",
+   "10 PLN 7,49"
+  ],
+  "crypto": [
+   "BTC $63 741",
+   "ETH $1 785",
+   "SOL $72,24",
+   "GRAM $1,06"
+  ]
+ },
+ "holidays": [
+  "Международный день студентов",
+  "День национального возрождения Азербайджана",
+  "День киргизского кино",
+  "День защиты черных котов"
+ ],
+ "items": [
+  {
+   "title": "Новые байки «Минск» 2026",
+   "summary": "В соседней стране стартовали продажи новых мотоциклов «Минск» модельного ряда 2026 года, которые по стоимости сравнимы с хорошим горным велосипедом.",
+   "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQMy1tcUt0bjBUMS16bHJLR1VRTUNLTU44N0hPNU1paEJ1aWxhbjI5V014cV93WnlaS3o5V0ViRnAyOGdpUWNxcFZPWngzZUhsRFB2b0xxeHBlRzZwa2dla1ZiU2h0Z2k0ZGFRLUV5RmJfYmU3bzFNTUVYSHoyYlp6UjhpdEdNSTV2YUlQWGM2aVg0WGxXYl9rR1UwN09PVTRZU1lVa0Zn0gGrAUFVX3lxTE1jVm9KWmlFTjZOT3BtbVdyZnZrZ2VDeW8xanF0Y1pPYjdrRUNnTE1oMDNlektPbmlEOFFYVlpZQ1hDVHFENmhtWFV2c1FPQThOTWtNN0kwOGxiVUs3Y1JuRWJXZ0NFTlRHeWJrOGtaQXphNmhwU3RsWmdudGxxem5UcFJfWTF0aDRscF9NVjdGaHFaaWZjVUNpYmM5RUpNMU9qYXVKZEtPN0YwOA?oc=5",
+   "source": "Peterburg2.ru"
+  },
+  {
+   "title": "Поместье Деда Мороза в Гродно",
+   "summary": "В Центре ремесел «Наследие» полным ходом идут приготовления к открытию волшебного поместья Деда Мороза.",
+   "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1ubTIySTVUWE51X1dDWll3a2hwZkVnandiMVVtSldoLTRnbUduSFphSS0zWWluSlllTGhBRDhJZTVXa202RTZValVxVlhzWnJsckc5S2ZnRUdlTE1wRHJScGlDODhsTlBLLXI3RkJZRjRmOGRVN1E?oc=5",
+   "source": "Гродненская правда"
+  },
+  {
+   "title": "Красивая фотовыставка в Гродно",
+   "summary": "Жители и гости города могут насладиться прекрасными работами фотографа Ольги Самирхановой на новой выставке.",
+   "url": "https://grodnonews.by/news/kultura/fotovystavka_samirkhanovoy_grodno.html",
+   "source": "grodnonews.by"
+  },
+  {
+   "title": "Талант из Гродно в Краснодаре",
+   "summary": "В Краснодаре успешно открылась персональная выставка талантливого фотографа из Гродно Александра Лосминского.",
+   "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTFBsZkd5R3Jad2dIQ3lRQWVNSHRPYzNkdl9mdjhHTWRnVmFnWUhsS013dGk0dlhUV1JPM1hqZWZQeFVxT3VmdmhqOF9XSQ?oc=5",
+   "source": "Новая Кубань"
+  }
+ ]
+}
