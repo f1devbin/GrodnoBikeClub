@@ -1,0 +1,56 @@
+{
+ "date": "2026-11-18T20:45:08.574208+03:00",
+ "intro": "Всем привет! Ловите порцию отличных новостей из Гродно и веломира.",
+ "outro": "Всем отличных поездок и прекрасного настроения!",
+ "weather": {
+  "temp": 7,
+  "desc": "морось",
+  "icon": "rain",
+  "tmax": 8,
+  "tmin": 0
+ },
+ "rates": {
+  "fiat": [
+   "USD 3,00",
+   "EUR 3,30",
+   "100 RUB 3,65",
+   "10 PLN 7,49"
+  ],
+  "crypto": [
+   "BTC $63 179",
+   "ETH $1 774",
+   "SOL $73,70",
+   "GRAM $1,02"
+  ]
+ },
+ "holidays": [
+  "День географических информационных систем (День ГИС)",
+  "Всемирная неделя повышения осведомленности о проблеме устойчивости к противомикробным препаратам"
+ ],
+ "items": [
+  {
+   "title": "Модный подиум в дродненском драмтеатре",
+   "summary": "Гродненский драмтеатр готовится примерить роль главного модного подиума города! Нас ждет яркое и красивое культурное событие.",
+   "url": "https://grodnonews.by/news/kultura/dramteatr_grodno_modnyy_podium.html",
+   "source": "grodnonews.by"
+  },
+  {
+   "title": "Студенческий Олимп в Гродно",
+   "summary": "В Гродно проходит масштабная универсиада по единоборствам «Студенческий Олимп». Желаем участникам энергии и ярких побед!",
+   "url": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxQTm13cFd6Rmdld3R5S1pJS0V5LUpsbVVmZ1U5THAzMkZISnFreDhXOGExeDk0c01kLTVxQW5reC1EWkt3UUVwUWZmUGNuYkU1TW5famFiTEtJQlVhNFZTSXdRTTdFUHZjU2REaXE3eG9RSkZGYmtGX3VMNmJBWlRWcmU5SG5UQmxhRGk3OElzSWR4dWNlM0NLam9wZ2V2UlA1ZGtzcU9oUTdlWUVHLUp3MUdZNEpybTZSWTMyN1hRQWY2VWFONzVxVTZvQXgwU19CTE9pMmNqMi13UQ?oc=5",
+   "source": "ОНТ"
+  },
+  {
+   "title": "Яркий матч в чемпионате Беларуси",
+   "summary": "Любителей спорта ждет захватывающая игра команд «Рубон» и «Гродно-93-ГрГУ» в рамках чемпионата Беларуси.",
+   "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOc2ptWFpCbVFDT01OT3psR3RZOTZKdGliSlh3VlZlM0doVDZwRHB4ODZKZzl0WjBwQjJQTFlSak5ZUXhHQlAzOEJRZVVveWNWSHUyUm12cW5YNHBNelJaaUF5bjd6dGZ3UzY0M3NzNzZ0QW9ZSmY4X3RRWmNkWXRJQWpibElHeS1FbzVzZzlsekF0WFllVDkxSVFtSlR4elFUZE1IRE85bmRQY24tN1hWMkQ5WmhFNzg5enJiZnFR?oc=5",
+   "source": "sport-express.ru"
+  },
+  {
+   "title": "Новинки транспорта и велосипеды",
+   "summary": "Интересные сравнения на транспортном рынке: от новых моделей техники до надежных горных велосипедов для активных поездок.",
+   "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPU2FlbWQtUWt6OFQwRm1DTEJ1c2J5bERTSEZLRVI2TS1mZWtaajRheDdjbm9SMDd5bmFlZXdDWGdwMFJhZ0hGdnFtTVdxSF9LVm53NDAwc2NKOWtFQWp0a1AwRWw0M0UzU0p6Ny1sYnVUM1N0OW12azdOU1VhTmJkRGNDQUhTMDhleU4zajRrM0lNRmpndDk2dXJsQ1drc3NvQ2MtRNIBqgFBVV95cUxPc3Q5eWhVUHRjd1hqTDdsWEZmb2RqMERDRjhheDdzb1VDRkZtSS1DaHRzUENLVUxIREo0UUR6bTRLN0ZKUVNXUmhTOHpuZk9IeWdsMkFFeENzQXB3cjhZc1lCdWhzOUpJRVdLb0JRbXpQWW9DNUJnZXk0Y0N1MndGYTdSSW0xQm0zZC1MZFV6ZHlQckMzd3JDUDA2bDllX0xJNVhHQzZvSkdtZw?oc=5",
+   "source": "SM.news"
+  }
+ ]
+}
