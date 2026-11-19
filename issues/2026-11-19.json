@@ -1,0 +1,58 @@
+{
+ "date": "2026-11-19T20:56:34.535098+03:00",
+ "intro": "Всем привет! Ловите свежие спортивные новости из Гродно и мира велоспорта.",
+ "outro": "Всем отличных поездок и классного настроения!",
+ "weather": {
+  "temp": 6,
+  "desc": "облачно",
+  "icon": "cloud",
+  "tmax": 8,
+  "tmin": 4
+ },
+ "rates": {
+  "fiat": [
+   "USD 3,00",
+   "EUR 3,29",
+   "100 RUB 3,65",
+   "10 PLN 7,45"
+  ],
+  "crypto": [
+   "BTC $62 776",
+   "ETH $1 772",
+   "SOL $73,90",
+   "GRAM $1,03"
+  ]
+ },
+ "holidays": [
+  "Международный мужской день",
+  "День женского предпринимательства",
+  "Всемирный день философии",
+  "Всемирный день рекордов Гиннесса",
+  "День преподавателя высшей школы в России",
+  "День работника стекольной промышленности России",
+  "День работников гидрометеорологической службы Украины",
+  "День отказа от курения",
+  "Всемирный день туалета",
+  "Праздник «Божоле нуво»"
+ ],
+ "items": [
+  {
+   "title": "Новые грани тренировок",
+   "summary": "Известный спортсмен Лазовский отметил, что велогонки и триатлон отлично разнообразят привычную рутину на тренировках.",
+   "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPT0VxWEVJX2U3Sy1aZVJuaVhfZHMxVW5URWVTaXZyeEtzT3p6UU55VWdFcmdRYW1BS0FHMXhDN01fMVhscUs5b3cxSTZIOWJLeHNCYkpJSm9Ra3JBMzJRalFMT2NZaV9OSEJ0b0JXaktic3M4VUZCdzdhemZhME5FbkdDVzdZRjg2UGdKeWptQmUyWTZLTExrVUp2NEQ4SzZDcjUtMTl3?oc=5",
+   "source": "metaratings.by"
+  },
+  {
+   "title": "Гродно — столица студенческого спорта",
+   "summary": "Наш любимый город принял масштабные соревнования, объединив талантливую молодежь и подарив всем заряд бодрости.",
+   "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNYXlqUlpVQWhoTThCeU1DZzl4T3pBUkdHMW9uYnZLS1VZZFYwb1lDU3NoMEw2Y0ZJdUpqY1g2eUtmSzhuUzI0RDVhY2U3LVpkelBQVjZNWlJ1WFRWcDBLdllNVm1rVW5xNURMSkpTZmJjUkRTemFXLTdocjJUcVUxdVRHa3pSemdvUkFrMXoyT3l2bkpOdW13QU5oZ2E?oc=5",
+   "source": "Гродно Плюс"
+  },
+  {
+   "title": "Встреча с легендой спорта",
+   "summary": "Знаменитый Иван Тихон заглянул на школьное ток-шоу в Гродно и пообщался с ребятами о победах и мотивации.",
+   "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBPRmhWeDk1NmxOOUpuNmZVUjRieWd1TEVva3poQzBSMWFpd1Y5SEsyY1cyVHd4c0NLY2NoSnhqRlp6alFJYUhSQXVIZTRoQkJ1cklNQURMdDVyYWkwQUhNS2x6S2V5TzE4NkE?oc=5",
+   "source": "Гродненская правда"
+  }
+ ]
+}
