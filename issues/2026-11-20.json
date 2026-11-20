@@ -1,0 +1,40 @@
+{
+ "date": "2026-11-20T20:28:49.233016+03:00",
+ "intro": "Всем привет! Ловите свежие спортивные новости из Гродно и мира двух колес.",
+ "outro": "Всем отличной недели и попутного ветра!",
+ "weather": null,
+ "rates": {
+  "fiat": [
+   "USD 2,99",
+   "EUR 3,29",
+   "100 RUB 3,66",
+   "10 PLN 7,45"
+  ],
+  "crypto": [
+   "BTC $59 288",
+   "ETH $1 631",
+   "SOL $69,07",
+   "GRAM $0,99"
+  ]
+ },
+ "holidays": [
+  "Всемирный день ребенка",
+  "День педиатра",
+  "День работника транспорта в России",
+  "День индустриализации Африки"
+ ],
+ "items": [
+  {
+   "title": "«Студенческий Олимп» в Гродно",
+   "summary": "В Гродно торжественно открылись захватывающие соревнования по греко-римской борьбе в рамках «Студенческого Олимпа». Желаем участникам ярких побед и красивых бросков!",
+   "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNbjhkRnV3elhmVTduZ0treGM3WFN3Q1R2Q2V5eV9odTR3NnB0U2VSRUZSemcyaGxGZGNYNkF0OWRoRjJ5VHlmQWo2emU4MEktXy1oYkE4MEtXSUZyNk1ONDJzXzBFOF9kT1Z4aDh2dEVXVVdtSEg4VS1wWDkxNkZTX1IyVHVjd2thdzVmQTJxZWd4dGp0dE1LSndNak41dk5ad3FHemRFQVlmR0J6a0dNN250NUMzZlFabE16dUZB?oc=5",
+   "source": "ОНТ"
+  },
+  {
+   "title": "Баскетбольные батареи в Гродно",
+   "summary": "В ярком матче чемпионата Беларуси по баскетболу команда «Рубон» одержала победу над молодежным составом «Гродно-93». Отличная игра наших ребят!",
+   "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQbzRNaThCX2NSWkZfWVFfWEZJMHJ0clNNUjJlRlFPZGJpb2Z0a3hneDMySzZwLTRzSVNSdlJEU1R0bTRGeEF1T2Y4cWJuVFFYTWNRdk5fM1NQSDlRSkt3Nm5iZWVNNDJGUkZSNXJTNHg3Ti1HWXdMc0FWWVI3NU9rUkpsZUFjb290M0hMdDdxZUtvXzVrQXZzN1dKVDB6RzV3X0w0Y25MLXEzNDIt?oc=5",
+   "source": "Belarus-news.by"
+  }
+ ]
+}
