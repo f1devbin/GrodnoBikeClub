@@ -1,0 +1,63 @@
+{
+ "date": "2026-11-21T19:34:23.050686+03:00",
+ "intro": "Всем привет! Ловите порцию отличных новостей для отличного настроения!",
+ "outro": "Всем крутых поездок и отличного настроения!",
+ "weather": {
+  "temp": 2,
+  "desc": "переменная облачность",
+  "icon": "partly",
+  "tmax": 2,
+  "tmin": 0
+ },
+ "rates": {
+  "fiat": [
+   "USD 2,99",
+   "EUR 3,29",
+   "100 RUB 3,66",
+   "10 PLN 7,45"
+  ],
+  "crypto": [
+   "BTC $59 937",
+   "ETH $1 681",
+   "SOL $70,34",
+   "GRAM $0,96"
+  ]
+ },
+ "holidays": [
+  "Всемирный день приветствий",
+  "Всемирный день телевидения",
+  "День работника налоговых органов Российской Федерации",
+  "День бухгалтера в России",
+  "День общего договора о мире в Боснии и Герцеговине",
+  "День достоинства и свободы на Украине",
+  "Празднование Собора Архистратига Михаила и прочих Небесных Сил бесплотных",
+  "Фестиваль духовной музыки в Риме",
+  "Мадонна делла Салюте в Италии"
+ ],
+ "items": [
+  {
+   "title": "Спортивная энергия в Гродно!",
+   "summary": "Гродно захлестнула Республиканская универсиада по вольной борьбе. Город наполнен атмосферой ярких побед и молодежного задора!",
+   "url": "https://grodnonews.by/news/sport/universiada_borba_grodno.html",
+   "source": "grodnonews.by"
+  },
+  {
+   "title": "Яркая победа «Немана»",
+   "summary": "Гродненский «Неман» порадовал болельщиков в гостевом матче, одержав волевую победу над «Лидой».",
+   "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOMk9XSy1uR0tIelBxaWRBTjB4WW1EQUpuRHY3d0daSzZfM0U0TGpkT0ZTVnl0M19vZFFJb2s5MU10TXNTV2pVbDBKMHdkUGI3SDY5Z2FfTnhCUHVremJiYmFUQXR6Sm01YnBwSVVPLTE5SS1LdjZIWjhkQnhRc3ZKcVEtSmwxZmxKRnc5WGNncFBpSTVCd2VySVlUV1hxTHF5LURJQkVVcw?oc=5",
+   "source": "Гродно Плюс"
+  },
+  {
+   "title": "Праздник от байкеров",
+   "summary": "Настоящий праздник спорта и веселья подарили мотоциклисты воспитанникам Улуковской школы-интерната.",
+   "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxPSnkybnRzR1I1TXBiRFNVSkxDdjJwRU5QRjB0R0ZZSEtQSUxCVEVTcjZzWnUzNUtKMWcweV9MN1lDNnlkMGJNUmtNS3pIWS1rQ0xiME15eHVPYXQzQWpQaXg3Nkt1SFY2cWptanEwMG16ekJVN0VRVkJ5MzhfcVlLSTRqR0NDQ1FSWnBBZjQwckh1aXlFVVVxbjl4QjdsVzdhTHBkZ19vcVZHeVNTZFJkMmpsMm9FNWxyRWNQOFF3RkRkeXJ0WXozMl9zUUc1Wm9admU2d240WQ?oc=5",
+   "source": "Новости Беларуси | БелТА"
+  },
+  {
+   "title": "Новинки легендарной марки",
+   "summary": "В России появились новые мотоциклы «Минск» модельного ряда 2026 года, которые по цене сопоставимы с хорошим горным велосипедом.",
+   "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE16UURObzVwU3ZtaGlaUDdoZzhvb21hendBUm4wYmxHRmZIck9xaEhVX3NUQVpUQVd3b1hOYmJrblFRcThzSWlyeg?oc=5",
+   "source": "Про Город Киров"
+  }
+ ]
+}
